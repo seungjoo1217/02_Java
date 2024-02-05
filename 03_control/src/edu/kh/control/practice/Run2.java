@@ -14,7 +14,9 @@ public class Run2 {
 		//loopPt.practice8();
 		//loopPt.practice9();
 		//loopPt.practice10();
-		loopPt.practice11();
+		//loopPt.practice11();
+		//loopPt.practice12();
+		loopPt.practice13();
 	}
 
 	

@@ -47,7 +47,7 @@ public class Practice3 {
 		int input1 = sc.nextInt();
 		System.out.println(input1);
 		
-		sc.nextLine();ㅜ// 입력버퍼에 남은 개행문자 제거
+		sc.nextLine();// 입력버퍼에 남은 개행문자 제거
 		
 		System.out.print("문자열 입력 : ");
 		String input2 = sc.nextLine();
