@@ -256,18 +256,88 @@ public class PracticeService {
 		char arr[] = new char[input.length()];
 		
 		int count = input.length();
+		int add = 0;
 		for(int i = 0; i < arr.length; i++) {
 			arr[i] = input.charAt(i);
 			for(int j = 0; j < i; j++) {
 				if(arr[j] == arr[i]) {
 					count--;
+					add ++;
 				}
 			}
 		}
+
+		//문자 개수 : count = 8
 		
-		char arr2[] = new char[count];
-		int result = -1;
+		
+		char arr_result[] = new char[1];
+		arr_result[0] = arr[0];
+		
+		int num = 0;
+		for(int i = 0; i < count+add; i++) {
+			boolean flag = false;
+			
+			for(int j = 0; j < i; j++) {
+				if(arr[j] == arr[i]) {
+					flag = true;
+				}
+			}
+			
+			if(flag == false) {
+				num ++;
+				char arr_new[] = new char[num];
+				for(int z = 0; z < num; z ++) {
+					if(z < num-1) {
+						arr_new[z] = arr_result[z];
+					}else {
+						arr_new[z] = arr[i];
+					}
+				}
+				arr_result = arr_new;
+			}
+		}
+	
+		System.out.println("문자열에 있는 문자 : " + Arrays.toString(arr_result));
+		System.out.println("문자 개수 : " + count);
 		
 
+	}
+
+	public void practice14() {
+		System.out.print("배열의 크기를 입력하세요 : ");
+		String arr[] = new String[sc.nextInt()];
+		sc.nextLine();
+		
+
+		for(int i = 0; i < arr.length; i++) {
+			System.out.print((i+1) + "번째 문자열 : ");
+			arr[i] = sc.nextLine();
+			}
+		
+		char ch = 0;
+		int count = arr.length;
+		while(true) {
+			System.out.print("더 값을 입력하시겠습니까?(Y/N) : ");
+			ch = sc.next().charAt(0);
+			if(ch != 'y')break;
+			System.out.print("더 입력하고 싶은 개수 : ");
+			int num = sc.nextInt();
+			sc.nextLine();
+			count += num;
+			String arr_new[] = new String[count];
+			
+			for(int i = 0; i < count; i++) {
+				if(i < arr.length) {
+					arr_new[i] = arr[i];
+				}else {
+					System.out.print((i+1) + "번째 문자열 : ");
+					arr_new[i] = sc.nextLine();
+				}
+			
+			}
+			arr= arr_new;
+		}
+		System.out.println(Arrays.toString(arr));
+		
 	}
 }
