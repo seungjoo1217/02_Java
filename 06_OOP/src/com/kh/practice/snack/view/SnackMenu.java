@@ -12,6 +12,8 @@ public class SnackMenu {
 	
 	
 	public void menu() {
+		
+		
 		System.out.println("스낵류를 입력하세요.");
 		System.out.print("종류 : ");
 		String kind = sc.next();
