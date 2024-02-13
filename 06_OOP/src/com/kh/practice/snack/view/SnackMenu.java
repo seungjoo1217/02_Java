@@ -3,6 +3,7 @@ package com.kh.practice.snack.view;
 import java.util.Scanner;
 
 import com.kh.practice.snack.controller.SnackController;
+import com.kh.practice.snack.model.vo.Snack;
 
 public class SnackMenu {
 
@@ -11,45 +12,38 @@ public class SnackMenu {
 	private SnackController scr = new SnackController();
 	
 	
-	public void menu() {
-		
-		
+	String kind = "";
+	String name = "";
+	String flavor = "";
+	int num = 0;
+	int price = 0;
+
+	public void menu() {		
 		System.out.println("스낵류를 입력하세요.");
 		System.out.print("종류 : ");
-		String kind = sc.next();
+		kind = sc.next();
 		System.out.print("이름 : ");
-		String name = sc.next();
+		name = sc.next();
 		System.out.print("맛 : ");
-		String flavor = sc.next();
+		flavor = sc.next();
 		System.out.print("개수 : ");
-		int num = sc.nextInt();
+		num = sc.nextInt();
 		System.out.print("가격 : ");
-		int price = sc.nextInt();
+		price = sc.nextInt();		
+		
+		System.out.println(scr.saveData(kind, name, flavor, num, price));
+		
+		System.out.print("저장한 정보를 확인하시겠습니까?(y/n) : ");
+		String input = sc.next();
+		
+		if(input.equals("y")) {
+			System.out.println(scr.confirmData());
+		}
 	}
-
-
 	
-	
-	
-	
-	public Scanner getSc() {
-		return sc;
-	}
 
 
-	public void setSc(Scanner sc) {
-		this.sc = sc;
-	}
 
-
-	public SnackController getScr() {
-		return scr;
-	}
-
-
-	public void setScr(SnackController scr) {
-		this.scr = scr;
-	}
 	
 
 	

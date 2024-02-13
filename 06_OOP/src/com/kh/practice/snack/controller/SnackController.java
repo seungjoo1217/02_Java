@@ -6,16 +6,22 @@ public class SnackController {
 	private Snack s = new Snack();
 	
 	
+	
 
 	
 	
 	
 	
-	public SnackController() {
+	public SnackController() {	
 		s.information();
 	}
 	
 	public String saveData(String kind, String name, String flavor, int numOf, int price) {
+		s.setKind(kind);
+		s.setName(name);
+		s.setFlavor(flavor);
+		s.setNumOf(numOf);
+		s.setPrice(price);
 		
 		return "저장 완료되었습니다.";
 	}
@@ -25,19 +31,7 @@ public class SnackController {
 				s.getNumOf() + "개 " + s.getPrice() + "원";
 	}
 
-	
-	
-	
-	
-	
-	
-	public Snack getS() {
-		return s;
-	}
 
-	public void setS(Snack s) {
-		this.s = s;
-	}
 	
 	
 	

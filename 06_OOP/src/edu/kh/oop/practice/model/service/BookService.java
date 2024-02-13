@@ -28,7 +28,7 @@ public class BookService {
 							book1.getTitle(), (book1.getPrice()-(book1.getPrice()*book1.getDiscountRate()))
 							);
 		
-		System.out.printf("도서명 = %s\n할인된 가격 = %.0f\n",
+		System.out.printf("도서명 = %s\n할인된 가격 = %.0f원\n",
 				book2.getTitle(), book2.getPrice()-(book2.getPrice()*book2.getDiscountRate())
 				);
 	}
