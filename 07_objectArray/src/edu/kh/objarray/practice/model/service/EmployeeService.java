@@ -163,6 +163,7 @@ public class EmployeeService {
 				System.out.println("이름 : " + employees[i].getEmployeeName() +
 						", 부서 : " + employees[i].getDept() +
 						", 급여 : " + employees[i].getSalary());
+				break;
 			}
 		}
 		
