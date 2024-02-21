@@ -1,6 +1,6 @@
-package edu.kh.collection.model.run;
+package edu.kh.collection.pack1.model.run;
 
-import edu.kh.collection.model.service.StudentService;
+import edu.kh.collection.pack1.model.service.StudentService;
 
 public class StudentRun {
 
