@@ -22,7 +22,7 @@ public class StudentService {
 	
 	// java.util.ArrayList : 배열 형태 List (가장 태표적인 List 자식 클래스)
 	
-	// ArrayList() 기본생성자 : 기본 클기 10짜리 리스트생성
+	// ArrayList() 기본생성자 : 기본 크기 10짜리 리스트생성
 	//					-> 하지만 리스트는 크기가 늘었다 줄었다 하기때문에 큰의미 없음.
 	
 	// ArrayList(용량) : 용량만큼의 리스트 생성

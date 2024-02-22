@@ -1,8 +1,7 @@
 package com.hw4.model.dto;
 
-import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
-import java.util.Map.Entry;
 
 public class ToyDto {
 
@@ -10,14 +9,14 @@ public class ToyDto {
 	private int age;
 	private int price;
 	private String color;
-	private int date;
+	private String date;
 	private Set<String> material;
 	
 	public ToyDto() {}
 
 
 
-	public ToyDto(String name, int age, int price, String color, int date, Set<String> material) {
+	public ToyDto(String name, int age, int price, String color, String date, Set<String> material) {
 		super();
 		this.name = name;
 		this.age = age;
@@ -61,11 +60,11 @@ public class ToyDto {
 		this.color = color;
 	}
 
-	public int getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(int date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	
@@ -77,13 +76,52 @@ public class ToyDto {
 	public void setMaterial(Set<String> material) {
 		this.material = material;
 	}
+	
+	// material 안에 있는 모든 재료를 문자열 형태로 만들어 반환하는 메서드
+	public String getMaterialAsString() {
+		StringBuilder sb = new StringBuilder();
+		
+		for(String materials : material) {
+			sb.append(materials).append(", ");
+		}
+		
+		// 마지막 쉼표와 공백 제거하기
+		if(sb.length() > 0) {
+			sb.setLength(sb.length() -2 );
+		}
+		
+		return sb.toString();
+	}
 
 	@Override
 	public String toString() {
-		return "이름:" + name + "/가격:" + price + "/색상:" +
-				color + "/사용가능연령:" + age + "/제조년월일:" +
-				date + "/재료:" + material;
+		return String.format("이름 : %s / 가격 : %d / 색상 : %s / 사용가능연령 : %d / 제조년월일 : %s / 재료 : %s",
+								name, price, color, age, date, getMaterialAsString());
 	}
+
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(age, color, date, material, name, price);
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ToyDto other = (ToyDto) obj;
+		return age == other.age && Objects.equals(color, other.color) && date == other.date
+				&& Objects.equals(material, other.material) && Objects.equals(name, other.name) && price == other.price;
+	}
+	
+	
 	
 	
 }
