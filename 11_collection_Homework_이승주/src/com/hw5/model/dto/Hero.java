@@ -1,10 +1,10 @@
 package com.hw5.model.dto;
 
 public class Hero {
-	private int hp;
-	private int power = 100;
-	private int it = 0;
-	private int ag = 10;
+	private int hp = 100;
+	private int power = 0;
+	private int it = 10;
+	private int ag = 0;
 	private int gold = 1000;
 	
 	

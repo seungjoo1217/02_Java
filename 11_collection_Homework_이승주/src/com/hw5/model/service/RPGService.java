@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Scanner;
 
 import com.hw5.model.dto.Hero;
@@ -61,7 +62,7 @@ public class RPGService {
 	
 	public void selectHero() {
 		System.out.println("===========Hero==========");
-		System.out.println("1.전사 | 2.법사 | 3.도적");
+		System.out.println("1.전사 | 2.마법사 | 3.도적");
 		System.out.println("=========================");
 		
 		System.out.print("선택>>");
@@ -157,7 +158,33 @@ public class RPGService {
 		System.out.println("==========================================");
 		System.out.println();
 		
-		return;
+		System.out.println("박쥐이(가) 공격을 하였다. 날개치기(10)");
+		System.out.println(Hero.get("직업") + "의 HP가 (10) 감소 하였다. 현재 H.P : " + ((int)Hero.get("체력")-10));
+		int num = 0;
+		do {
+			System.out.println("===========공격화면===========");
+			System.out.println("1.공격 | 2.특수공격 | 3.도망치기");
+			System.out.println(Hero.get("체력"));
+			System.out.print("선택>>");
+			int input = sc.nextInt();
+			Random random = new Random(1);
+			
+			switch(input) {
+			case 3 : 
+				if(random.nextInt() == 0) {
+				System.out.println("성공적으로 도망쳤다. ㅃ2");
+				num = 1;
+				return;
+				}
+				else {
+				System.out.println("도망에 실패함ㅠ");
+				System.out.println("박쥐이(가) 공격을 하였다. 날개치기(10)");
+				System.out.println(Hero.get("직업") + "의 HP가 (10) 감소 하였다. 현재 H.P : " + ((int)Hero.get("체력")-10));
+				} break;
+			
+			}
+		} while(num == 1);
+		
 	}
 	
 	
