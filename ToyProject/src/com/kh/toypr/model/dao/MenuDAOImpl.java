@@ -101,12 +101,39 @@ public class MenuDAOImpl implements MenuDAO{
 	}
 	
 	
+	// -----------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------
+
+	
+	@Override
+	public Map<String, Object> login(String id, String pw) {
+		
+		for(Map<String, Object> member : MenuSet) {
+			if(member.get("ID").equals(id) && member.get("PASSWORD").equals(pw)) {
+				return member;
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public Map<String, Object> searchMember(int num) {
+
+		for(Map<String, Object> member : MenuSet) {
+			if(member.get("MEMBERNUM").equals(num)) {
+				return member;
+			}
+		}
+		return null;
+	}
 	
 	
 	
 	
 	
 	
+	// -----------------------------------------------------------------------------------------
+	// -------------------------------------관리자메뉴---------------------------------------------
 	
 	
 	
@@ -131,26 +158,6 @@ public class MenuDAOImpl implements MenuDAO{
 		return -1;
 	}
 
-	@Override
-	public int updateMember(Map<String, Object> member, int num, String name, int age, char gender, int height, int weight) throws Exception {
-		
-		for(Map<String, Object> members : MenuSet) {
-			if(members == member) {
-				members.replace("MEMBERNUM", num);
-				members.replace("NAME", name);
-				members.replace("AGE", age);
-				members.replace("GENDER", gender);
-				members.replace("HEIGHT", height);
-				members.replace("WEIGHT", weight);
-				
-				saveFile();
-				
-				if(members != null) return 0;
-			}
-
-		}
-		return -1;
-	}
 
 	@Override
 	public int removeMember(Map<String, Object> memberMap) throws Exception {
@@ -171,6 +178,19 @@ public class MenuDAOImpl implements MenuDAO{
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	// -----------------------------------------------------------------------------------------
+	// --------------------------------------멤버메뉴----------------------------------------------
+	
+	
+	
+	
 	@Override
 	public Map<String, Object> viewPersonalInformation(Map<String, Object> member) {
 		
@@ -182,6 +202,27 @@ public class MenuDAOImpl implements MenuDAO{
 		}
 		return null;
 		
+	}
+	
+	@Override
+	public int updateMember(Map<String, Object> member, int num, String name, int age, char gender, int height, int weight) throws Exception {
+		
+		for(Map<String, Object> members : MenuSet) {
+			if(members == member) {
+				members.replace("MEMBERNUM", num);
+				members.replace("NAME", name);
+				members.replace("AGE", age);
+				members.replace("GENDER", gender);
+				members.replace("HEIGHT", height);
+				members.replace("WEIGHT", weight);
+				
+				saveFile();
+				
+				if(members != null) return 0;
+			}
+
+		}
+		return -1;
 	}
 	
 
@@ -197,28 +238,18 @@ public class MenuDAOImpl implements MenuDAO{
 		return null;
 	}
 
-	@Override
-	public int attendance(Map<String, Object> member) throws Exception {
-		
-		for(Map<String, Object> members : MenuSet) {
-			if(members == member) {
-				int count = (int)members.get("ATTENDANCE");
-				members.replace("ATTENDANCE", count + 1);
-				
-				saveFile();
-				
-				if(members != null) return (int)members.get("ATTENDANCE");
-			}
 
-		}
-		return -1;
-	}
 
 	@Override
-	public Map<String, Object> login(String id, String pw) {
+	public Map<String, Object> attendance(String id, String pw) throws Exception {
 		
 		for(Map<String, Object> member : MenuSet) {
 			if(member.get("ID").equals(id) && member.get("PASSWORD").equals(pw)) {
+				int count = (int)member.get("ATTENDANCE");
+				member.replace("ATTENDANCE", count+1);
+				
+				saveFile();
+				
 				return member;
 			}
 		}
@@ -226,33 +257,6 @@ public class MenuDAOImpl implements MenuDAO{
 	}
 
 
-
-
-
-
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

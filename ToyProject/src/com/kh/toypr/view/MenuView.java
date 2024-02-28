@@ -49,13 +49,9 @@ public class MenuView {
 				switch(num) {
 				case 1 : managerView(); break;
 				case 2 : loginMenu(); break;
-				case 0 : System.out.println("[End]"); break;
+				case 0 : System.exit(1); break;
 				default : System.out.println("[잘못 입력하셨습니다]"); 
 				}
-				
-				System.out.println("=======================================================");
-				System.out.println();
-				System.out.println();
 				
 			}catch(NumberFormatException e) {
 				System.out.println("[숫자만 입력해주세요]");
@@ -81,7 +77,7 @@ public class MenuView {
 	public void managerView() throws NumberFormatException, IOException, Exception {
 		int managerNum = 1234;
 		
-		System.out.print("MANAGERNUM : ");
+		System.out.print("MANAGERNUM(1234) : ");
 		int inputNum = Integer.parseInt(br.readLine());
 		
 		if(managerNum == inputNum) {
@@ -95,15 +91,12 @@ public class MenuView {
 				case 2 : addMember(); break;
 				case 3 : removeMember(); break;
 				case 9 : startView(); break;
-				case 0 : System.out.println("[End]"); break;
+				case 0 : System.exit(1); break;
 				default : System.out.println("[잘못 입력하셨습니다]");
 				}
+
 				
-				System.out.println("=======================================================");
-				System.out.println();
-				System.out.println();
-				
-			} while( num != 0);
+			} while( num != 0 );
 			
 		} else {
 			System.out.println("[관리자번호가 존재하지 않습니다.]");
@@ -142,8 +135,6 @@ public class MenuView {
 	 * @throws NumberFormatException 
 	 */
 	public void loginMenu() throws NumberFormatException, Exception {
-		Set<Map<String, Object>> MenuSet = service.viewAllMember();
-		int num = 0;
 		
 		System.out.println("======================= Login =========================");
 		System.out.print("ID >> ");
@@ -168,41 +159,43 @@ public class MenuView {
 	}
 
 
-
-
 	/**
 	 * 회원전용메뉴 표시
 	 * @throws Exception 
 	 */
 	public void memberMenu(Map<String, Object> member) throws Exception {
-		System.out.println("================ Zym Member [" + member.get("NAME") + "] =================");
-		System.out.println("1. View Personal Information");
-		System.out.println("2. Update Personal Information");
-		System.out.println("3. View BMI");
-		System.out.println("4. Attendance Zym");
-		System.out.println("9. Previous");
-		System.out.println("0. End");
-		
-		System.out.print("Select >>");
-		int input = Integer.parseInt(br.readLine());
-		
-
+		int input = 0; 
+	
 		do {
+			
+			System.out.println("================ Zym Member [" + member.get("NAME") + "] =================");
+			System.out.println("1. View Personal Information");
+			System.out.println("2. Update Personal Information");
+			System.out.println("3. View BMI");
+			System.out.println("4. Attendance Zym");
+			System.out.println("9. Previous");
+			System.out.println("0. End");
+			
+			System.out.print("Select >>");
+			input = Integer.parseInt(br.readLine());
+			
+			
 			switch(input) {
 			case 1 : viewPersonalInformation(member); break;
 			case 2 : UpdatePersonalInformation(member); break;
 			case 3 : viewBmi(member); break;
 			case 4 : attendanceZym(member); break;
 			case 9 : startView(); break;
-			case 0 : System.out.println("[End]"); break;
+			case 0 : System.exit(1); break;
 			default : System.out.println("[잘못 입력하셨습니다]");
 			}
+			
 		} while(input != 0);
 	}
 	
 	
 	// -----------------------------------------------------------------------------------------
-	// -----------------------------------------------------------------------------------------
+	// -------------------------------------관리자메뉴---------------------------------------------
 	
 	
 	
@@ -214,9 +207,8 @@ public class MenuView {
 	 */
 	public void viewAll() {
 		System.out.println("\n================== View All Member ====================");
-		String st = service.viewAll();
 		
-		System.out.println(st);
+		System.out.println(service.viewAll());
 	}
 	
 	/** 회원 추가하기
@@ -230,13 +222,11 @@ public class MenuView {
 		System.out.print("MEMBERNUM : ");
 		int num = Integer.parseInt(br.readLine());
 		
-		Set<Map<String, Object>> MenuSet = service.viewAllMember();
+		Map<String, Object> searchMem = service.searchMember(num);
 		
-		for(Map<String, Object> memberMap : MenuSet) {
-			if(memberMap.get("MEMBERNUM").equals(num)) {
-				System.out.println("[이미 존재하는 회원번호입니다]");
-				return;
-			}
+		if(searchMem != null) {
+			System.out.println("[이미 존재하는 회원번호입니다]");
+			return;
 		}
 		
 		System.out.print("ID : ");
@@ -282,37 +272,38 @@ public class MenuView {
 		System.out.print("MEMBERNUM : ");
 		int num = Integer.parseInt(br.readLine());
 		
-		Set<Map<String, Object>> MenuSet = service.viewAllMember();
+		Map<String, Object> searchMem = service.searchMember(num);
 		
-		
-		boolean flag = true;
-		for(Map<String, Object> memberMap : MenuSet) {
-			if(memberMap.get("MEMBERNUM").equals(num)) {
-				flag = false;
-				
-				int index = service.removeMember(memberMap);
-				
-				if(index == -1) {
-					System.out.println("[삭제 실패]");
-					return;
-				}else {
-					System.out.println("[삭제 성공]");
-				}
-				break;
+		if(searchMem != null) {
+			
+			int index = service.removeMember(searchMem);
+			
+			if(index == -1) {
+				System.out.println("[삭제 실패]");
+				return;
+			}else {
+				System.out.println("[삭제 성공]");
+				return;
 			}
-		}
-		
-		if(flag) {
+		}else {
 			System.out.println("[일치하는 회원번호의 회원이 없습니다]");
 			return;
+			
 		}
+		
 	}
 	
 	
 	
 	
+	
+	
+	
+	
+	
+	
 	// -----------------------------------------------------------------------------------------
-	// -----------------------------------------------------------------------------------------
+	// --------------------------------------멤버메뉴----------------------------------------------
 	
 	/** 개인정보 보기
 	 * @throws Exception 
@@ -321,10 +312,7 @@ public class MenuView {
 	public void viewPersonalInformation(Map<String, Object> member) throws Exception {
 		System.out.println("\n============== View" + member.get("NAME") + " Information ================");
 		
-		Map<String, Object> me = service.viewPersonalInformation(member);
-		
-		System.out.println(me);
-		memberMenu(member);
+		System.out.println(member);
 	}
 	
 	
@@ -356,56 +344,34 @@ public class MenuView {
 		
 		if(index == -1) {
 			System.out.println("[수정 실패]");
-			memberMenu(member);
 		}else {
 			System.out.println("[수정 성공]");
-			memberMenu(member);
 		}
 
 	}
 	
+	/** 회원의 BMI 확인하기
+	 * @param member
+	 * @throws Exception
+	 */
 	public void viewBmi(Map<String, Object> member) throws Exception {
 		System.out.println("\n================ View " + member.get("NAME") + "'s BMI" + " ==================");
 		
-		int BMI = service.BMI(member);
-		System.out.print(member.get("NAME") + "'s BMI : " + BMI);
-		
-		if(BMI < 18.5) {
-			System.out.println(" (저체중)");
-			memberMenu(member);
-			
-		}else if(BMI >= 18.5 && BMI < 23) {
-			System.out.println(" (정상체중)");
-			memberMenu(member);
-			
-		}else if(BMI >= 23 && BMI < 25) {
-			System.out.println(" (과체중)");
-			memberMenu(member);
-			
-		}else if(BMI >= 25 && BMI < 30) {
-			System.out.println(" (경도비만)");
-			memberMenu(member);
-			
-		}else if(BMI >= 30 && BMI < 35) {
-			System.out.println(" (중등도 비만)");
-			memberMenu(member);
-			
-		}else if(BMI >= 35) {
-			System.out.println(" (고도비만)");
-			memberMenu(member);
-			
-		}else if(BMI == 0) {
-			System.out.println("[잘못 입력하셨습니다]");
-			memberMenu(member);
-		}
+		System.out.println(service.BMI(member));
 	}
 	
 	
+	/** 헬스장 출석하기/ 전체출석횟수 확인하기
+	 * @param member
+	 * @throws Exception
+	 */
 	public void attendanceZym(Map<String, Object> member) throws Exception {
 		Set<Map<String, Object>> MenuSet = service.viewAllMember();
 		
 		System.out.println("\n================ " + member.get("NAME") + "'s Zym Attendance" + " ==================");
 		System.out.println("\n================ Certification ==================");
+		System.out.println("[인증을 위해 ID와 PASSWORD를 입력해주세요]");
+		System.out.println();
 		
 		System.out.print("ID >> ");
 		String id = br.readLine();
@@ -413,22 +379,17 @@ public class MenuView {
 		System.out.print("PASSWORD >> ");
 		String pw = br.readLine();
 		
-
-		for(Map<String, Object> memberMap : MenuSet) {
-			if(memberMap.get("ID").equals(id) && memberMap.get("PASSWORD").equals(pw)) {
-				System.out.println("[출석 인증 성공]");
-				int count = service.attendance(member);
-				
-				if(count == -1) {
-					System.out.println("[출력 실패]");
-					memberMenu(member);
-				}else {
-					System.out.println("[출석 수 : " + count + "]");
-					memberMenu(member);
-				}
-				
-			}
+		
+		int index = service.attendance(member, id, pw);
+		
+		if(index == -1) {
+			System.out.println("[출석 인증 실패]");
+		}else {
+			System.out.println("[출석 인증 성공]");
+			System.out.println("[전체 출석 수 : " + index + "]");
 		}
+
+		
 	}
 	
 	

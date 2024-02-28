@@ -104,16 +104,6 @@ public class Member implements Serializable{
 	}
 
 	@Override
-	public String toString() {
-		return "MEMBERNUM : " + memberNum +
-				"AGE : " + age + 
-				"GENDER : " + gender +
-				"HEIGHT : " + height + 
-				"WEIGHT : " + weight +
-				"ATTENDANCE : " + attendance;
-	}
-
-	@Override
 	public int hashCode() {
 		return Objects.hash(age, attendance, gender, height, id, memberNum, name, pw, weight);
 	}
