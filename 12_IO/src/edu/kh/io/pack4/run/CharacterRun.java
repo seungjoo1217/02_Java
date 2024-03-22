@@ -7,6 +7,7 @@ public class CharacterRun {
 		
 		CharacterService service = new CharacterService();
 		//service.fileInput();
-		service.fileOutput();
+		//service.fileOutput();
+		service.song();
 	}
 }

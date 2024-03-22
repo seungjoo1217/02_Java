@@ -2,9 +2,13 @@ package edu.kh.io.pack4.model.service;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class CharacterService {
 
@@ -122,6 +126,43 @@ public class CharacterService {
 		
 		
 	}
+	
+	
+	public void song() {
+		FileReader fr = null;
+		BufferedReader br = null;
+		
+		try {
+			fr = new FileReader("/io_test/20240222/노래가사.txt");
+			br = new BufferedReader(fr);
+			
+			String line = null;
+			while(true) {
+				line = br.readLine();
+				
+				if(line == null) break;
+				
+				System.out.println(line);
+			}
+			
+			
+		}catch(IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(br != null) br.close();
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	
+	
+	
+	
+	
+	
 	
 	
 	

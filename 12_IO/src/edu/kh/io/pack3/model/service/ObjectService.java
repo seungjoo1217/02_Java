@@ -1,7 +1,9 @@
 package edu.kh.io.pack3.model.service;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -116,21 +118,33 @@ public class ObjectService {
 		
 		
 	}
+
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void readObject() {
+		FileInputStream fis = null;
+		ObjectInputStream ois = null;
+		
+		try {
+			fis = new FileInputStream("/io_test/20240222/Member.dat");
+			ois = new ObjectInputStream(fis);
+			
+			Member member = (Member)ois.readObject();
+			
+			System.out.println(member);
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(ois != null) ois.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 
 }
